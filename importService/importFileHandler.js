@@ -14,7 +14,7 @@ const sqs=new AWS.SQS()
 
   
 data.forEach(async(element) => {
-  await sqs.sendMessage({
+   await sqs.sendMessage({
 QueueUrl:process.env.SQS_URL,
 MessageBody:JSON.stringify(element)
 },(err,data)=>{
