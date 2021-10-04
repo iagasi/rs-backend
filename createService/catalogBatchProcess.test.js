@@ -12,7 +12,7 @@ describe("functio takes object and mapes it",()=>{
     ]
 
     }
-    test("gstslog",async()=>{
+    test("returns object",async()=>{
 const res=await catalogBatchProcess(event)
 
     expect(res).toBeDefined()
