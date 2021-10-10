@@ -1,0 +1,30 @@
+service: Authorization-service
+plugins:
+  - serverless-dotenv-plugin
+provider:
+ name: aws
+ runtime: nodejs12.x
+ lambdaHashingVersion: 20201221
+ stage: dev
+ region: eu-west-1
+
+#  environment:
+#    An: ${cf:Authorization-service-dev.BasicAuthorizerLambdaFunctionQualifiedArn}
+   
+  
+
+functions:
+   basicAuthorizer:
+    handler: handler.basicAuthorizer
+
+   
+  
+              
+              
+
+               
+              
+
+
+
+
