@@ -1,13 +1,13 @@
-'use strict';
-const products=require("./products.json")
-module.exports.parsedFile = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-     products
-    )
-  };
+// 'use strict';
+// const products=require("./products.json")
+// module.exports.parsedFile = async (event) => {
+//   return {
+//     statusCode: 200,
+//     body: JSON.stringify(
+//      products
+//     )
+//   };
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
+//   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
+//   // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+// };

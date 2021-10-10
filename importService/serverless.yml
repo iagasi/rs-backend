@@ -11,25 +11,29 @@
 #
 # Happy Coding!
 
-service: importservice
+service: importserviceTask66-import-service
 # app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
+# plugins:
+#  - serverless-plugin-stack-outputs
+
+
 frameworkVersion: '2'
-# 
+
+?
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   lambdaHashingVersion: 20201221
-custom:
-  s3Bucket: dev-stage-module5.2
-
-# you can overwrite defaults here
   stage: dev
-  region: us-east-1
+  region: eu-west-1
+
+
+  environment:
+    SQS_URL:
+      ${cf:importserviceTask66-dev.SQSQueueData}
+    SNS_URL:
+     ${cf:importserviceTask66-dev.SQSQueueData}
 
   iamRoleStatements:
     - Effect: "Allow"
@@ -42,33 +46,64 @@ custom:
         - "s3:*"
       Resource:
         - "arn:aws:s3:::${self:custom.s3Bucket}/*"
+    
+    - Effect: "Allow"
+      Action:
+        - "sqs:*"
+      Resource: ${cf:importserviceTask66-dev.SQSQueueArn} 
+       
 
 
 
-resources:
-  Resources:
-    ## Specifying the S3 Bucket
-    WebAppS3Bucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:custom.s3Bucket}
-        AccessControl: PublicRead
-    WebAppS3BucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        Bucket:
-          Ref: WebAppS3Bucket
-        PolicyDocument:
-          Statement:
-            - Sid: PublicReadGetObject
-              Effect: Allow
-              Principal: "*"
-              Action:
-              - s3:GetObject
-              - s3:PutObject
-              - s3:DeleteObject
-              Resource: arn:aws:s3:::${self:custom.s3Bucket}/*
+custom:
+  s3Bucket: dev-stage-module6.6
+  existing: true
+  
 
+ 
+
+
+
+
+    
+     
+      
+     
+     
+       
+
+
+        
+       
+
+
+
+# resources:
+#   Resources:
+#     ## Specifying the S3 Bucket
+#     WebAppS3Bucket:
+#       Type: AWS::S3::Bucket
+#       Properties:
+#         BucketName: ${self:custom.s3Bucket}
+#         AccessControl: PublicRead
+#     WebAppS3BucketPolicy:
+#       Type: AWS::S3::BucketPolicy
+#       Properties:
+#         Bucket:
+#           Ref: WebAppS3Bucket
+#         PolicyDocument:
+#           Statement:
+#             - Sid: PublicReadGetObject
+#               Effect: Allow
+#               Principal: "*"
+#               Action:
+#               - s3:GetObject
+#               - s3:PutObject
+#               - s3:DeleteObject
+#               Resource: arn:aws:s3:::${self:custom.s3Bucket}/*
+      
+
+     
 #        Fn::Join:
 #          - ""
 #          - - "arn:aws:s3:::"
@@ -121,7 +156,7 @@ functions:
       - httpApi:
           method: get
           path: /parsedfile
-          cors: true
+          
 
 
 

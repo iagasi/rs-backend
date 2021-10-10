@@ -1,4 +1,4 @@
-const fs=require("fs")
+
 
 class ImportFileHAndler{
 constructor(s3,params,record,Bucket){
@@ -8,6 +8,28 @@ constructor(s3,params,record,Bucket){
     this.Bucket=Bucket
 }
 
+async createProductInDatabase(AWS,data){
+const sqs=new AWS.SQS()
+
+
+  
+data.forEach(async(element) => {
+   await sqs.sendMessage({
+QueueUrl:process.env.SQS_URL,
+MessageBody:JSON.stringify(element)
+},(err,data)=>{
+  if(err){console.log("Quequeuerror occured"+err)}
+ if(data) {console.log("Queueworking")}
+})
+
+});
+
+
+
+
+}
+
+/////
 
 async createproducts(data){
  const newdata= JSON.stringify(data)

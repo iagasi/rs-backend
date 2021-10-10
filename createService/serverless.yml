@@ -11,10 +11,10 @@
 #
 # Happy Coding!
 
-service: sam
+service: importserviceTask66
 useDotenv: true
 plugins:
-  - serverless-dotenv-plugin
+  
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
@@ -31,29 +31,33 @@ provider:
   region: eu-west-1
 
  
+  
+  environment:
+   TOPIC_ARN:
+     Ref:
+      - SNSTopic
+   
+   host: database-1.c0f3uj4ayzym.eu-west-1.rds.amazonaws.com
+   port: 5432
+   user: postgres
+   database: postgres
+   password: 123456789
 
 
- 
 
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
 
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
+
+  iamRoleStatements:
+   - Effect: "Allow"  
+     Action:
+       - "sns:*" 
+     Resource: 
+      Ref:
+       - SNSTopic
+ 
 
 # you can define service wide environment variables here
  
@@ -67,15 +71,59 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  CreateProduct:
-    handler: create.create
-    events:
-      - http:
-          path: create-product
-          method: post
-          cors: true
+
+
+ catalogBatchProcess:
+   handler: catalogBatchProcess.catalogBatchProcess
+   events:
+     - sqs:
+         batchSize: 5
+         arn:
+           Fn::GetAtt:
+             - SQSQueue
+             - Arn
+    
+
+
        
+
+
+resources:
+ Resources:
+   SQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName:  catalogItemsQueue  
+
+   SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+     TopicName: createProductTopic
+     
+   SNSSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+     Endpoint: nameagasi@gmail.com
+     Protocol: email
+     TopicArn:
+      Ref: SNSTopic 
       
+      
+
+ Outputs: 
+  SQSQueueData: 
+   Value: 
+     Ref: SQSQueue 
+
+  SNSData:
+   Value:  
+    Ref:SNSTopic
+
+  
+  SQSQueueArn:
+    Value: 
+      Fn::GetAtt: [SQSQueue,Arn]
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
