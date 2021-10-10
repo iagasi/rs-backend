@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-.env
-node_modules
-=======
 node_modules
 .serverless
 product-service
->>>>>>> d1700ba302807905038ffebab90817901ff29931
+.env
+
