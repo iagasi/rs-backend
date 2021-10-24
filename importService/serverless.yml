@@ -20,7 +20,11 @@ service: importserviceTask66-import-service
 
 frameworkVersion: '2'
 
+<<<<<<< HEAD
+
+=======
 ?
+>>>>>>> d1700ba302807905038ffebab90817901ff29931
 provider:
   name: aws
   runtime: nodejs14.x
@@ -138,7 +142,12 @@ functions:
                   "name" : "$input.params('name')"
                  
                 }
+<<<<<<< HEAD
+          authorizer:
+           arn: ${cf:Authorization-service-dev.BasicAuthorizerLambdaFunctionQualifiedArn}
+=======
  
+>>>>>>> d1700ba302807905038ffebab90817901ff29931
 
   ImportFileParser:
     handler: importFileParser.fileParser

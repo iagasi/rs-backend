@@ -14,7 +14,11 @@ const sqs=new AWS.SQS()
 
   
 data.forEach(async(element) => {
+<<<<<<< HEAD
+  await sqs.sendMessage({
+=======
    await sqs.sendMessage({
+>>>>>>> d1700ba302807905038ffebab90817901ff29931
 QueueUrl:process.env.SQS_URL,
 MessageBody:JSON.stringify(element)
 },(err,data)=>{
@@ -66,4 +70,8 @@ async createproducts(data){
     }
 }
 
+<<<<<<< HEAD
 module.exports=ImportFileHAndler
+=======
+module.exports=ImportFileHAndler
+>>>>>>> d1700ba302807905038ffebab90817901ff29931
