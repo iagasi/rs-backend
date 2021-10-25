@@ -12,6 +12,6 @@ COPY  --from=Builder /app/package.json  ./
 RUN  npm install --only=production
 RUN npm install pm2 -g
 COPY --from=Builder /app/dist ./dist
-gell
+
 EXPOSE 4000
 CMD [ "pm2-runtime","dist/main.js"]  
