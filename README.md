@@ -7,9 +7,12 @@ link to create product  http://frontend-rs.s3-website-eu-west-1.amazonaws.com/cr
     
     
 
-link to bbf app crete ptoduct  http://iagasi-bbf-dev.us-east-1.elasticbeanstalk.com/product/create  ------   simillar lambda https://7fd8jrxjh2.execute-api.us-east-1.amazonaws.com/create
+link to bbf app crete ptoduct  http://iagasi-bbf-dev.us-east-1.elasticbeanstalk.com/product/create  ------   simillar lambda https://7fd8jrxjh2.execute-api.us-east-1.amazonaws.com/create       need to make PUT request with JSON in body
 
 
 
 
-ling to bbf cart  http://iagasi-bbf-dev.us-east-1.elasticbeanstalk.com/cart  -----simmilar cart api   http://rs-cart-api-dev.us-east-1.elasticbeanstalk.com/api/profile/cart 
+ling to bbf cart http://iagasi-bbf-dev.us-east-1.elasticbeanstalk.com/cart/profile/cart  -----simmilar cart api   http://rs-cart-api-dev.us-east-1.elasticbeanstalk.com/api/profile/cart   ----GET request
+
+
+score 5 from 7
